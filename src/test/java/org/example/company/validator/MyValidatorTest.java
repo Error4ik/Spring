@@ -4,70 +4,90 @@ import org.example.company.domain.Employee;
 import org.example.company.domain.Position;
 import org.example.company.domain.Salary;
 import org.junit.Test;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import javax.validation.Validator;
+
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.times;
 
 public class MyValidatorTest {
 
-    private final ClassPathXmlApplicationContext context =
-            new ClassPathXmlApplicationContext("spring-context.xml");
-
-    private final MyValidator validator = context.getBean(MyValidator.class);
+    private final Validator validator = mock(Validator.class);
+    private final MyValidator myValidator = new MyValidator(validator);
+    private final Set hashSet = mock(HashSet.class);
+    private final Position position = mock(Position.class);
+    private final Employee employee = mock(Employee.class);
+    private final Salary salary = mock(Salary.class);
 
     @Test
     public void whenValidateEmployeeWithValidEmployeeShouldBeReturnTrue() {
-        Employee employee = new Employee("John", "Doe", 20);
+        when(validator.validate(any(Employee.class))).thenReturn(new HashSet<>());
 
-        boolean actualValue = validator.validateEmployee(employee);
+        boolean actualValue = myValidator.validateEmployee(employee);
 
         assertTrue(actualValue);
+        verify(validator, times(1)).validate(employee);
     }
 
     @Test
     public void whenValidateEmployeeWithNotValidEmployeeShouldBeReturnFalse() {
-        Employee employee = new Employee(null, "D", 17);
+        when(validator.validate(any(Employee.class))).thenReturn(hashSet);
+        when(hashSet.size()).thenReturn(1);
 
-        boolean actualValue = validator.validateEmployee(employee);
+        boolean actualValue = myValidator.validateEmployee(employee);
 
         assertFalse(actualValue);
+        verify(validator, times(1)).validate(employee);
     }
 
     @Test
     public void whenValidatePositionWithValidPositionShouldBeReturnTrue() {
-        Position position = new Position("DEVELOPER", 20);
+        when(validator.validate(any(Position.class))).thenReturn(new HashSet<>());
 
-        boolean actualValue = validator.validatePosition(position);
+        boolean actualValue = myValidator.validatePosition(position);
 
         assertTrue(actualValue);
+        verify(validator, times(1)).validate(position);
     }
 
     @Test
     public void whenValidatePositionWithNotValidPositionShouldBeReturnFalse() {
-        Position position = new Position("D", 20);
+        when(validator.validate(any(Position.class))).thenReturn(hashSet);
+        when(hashSet.size()).thenReturn(1);
 
-        boolean actualValue = validator.validatePosition(position);
+        boolean actualValue = myValidator.validatePosition(position);
 
         assertFalse(actualValue);
+        verify(validator, times(1)).validate(position);
     }
 
     @Test
     public void whenValidateSalaryWithValidSalaryShouldBeReturnTrue() {
-        Salary salary = new Salary(700);
+        when(validator.validate(any(Salary.class))).thenReturn(new HashSet<>());
 
-        boolean actualValue = validator.validateSalary(salary);
+        boolean actualValue = myValidator.validateSalary(salary);
 
         assertTrue(actualValue);
+        verify(validator, times(1)).validate(salary);
     }
 
     @Test
     public void whenValidateSalaryWithNotValidSalaryShouldBeReturnFalse() {
-        Salary salary = new Salary(200);
+        when(validator.validate(any(Salary.class))).thenReturn(hashSet);
+        when(hashSet.size()).thenReturn(1);
 
-        boolean actualValue = validator.validateSalary(salary);
+        boolean actualValue = myValidator.validateSalary(salary);
 
         assertFalse(actualValue);
+        verify(validator, times(1)).validate(salary);
     }
 
 }

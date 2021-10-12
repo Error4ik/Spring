@@ -3,15 +3,19 @@ package org.example.company.services;
 import org.example.company.domain.Position;
 import org.example.company.storage.PositionStorage;
 import org.example.company.validator.MyValidator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 
+@Component
 public class PositionService {
 
     private final MyValidator myValidator;
     private final PositionStorage positionStorage;
 
+    @Autowired
     public PositionService(MyValidator myValidator, PositionStorage positionStorage) {
         this.myValidator = myValidator;
         this.positionStorage = positionStorage;

@@ -4,15 +4,19 @@ import org.example.company.domain.Employee;
 import org.example.company.domain.Position;
 import org.example.company.storage.EmployeeStorage;
 import org.example.company.validator.MyValidator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
 
+@Component
 public class EmployeeService {
 
     private final MyValidator myValidator;
     private final EmployeeStorage employeeStorage;
 
+    @Autowired
     public EmployeeService(MyValidator myValidator, EmployeeStorage employeeStorage) {
         this.myValidator = myValidator;
         this.employeeStorage = employeeStorage;

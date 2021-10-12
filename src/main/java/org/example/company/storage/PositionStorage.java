@@ -3,12 +3,14 @@ package org.example.company.storage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.example.company.domain.Position;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@Component
 public class PositionStorage {
 
     private static final Logger logger = LogManager.getLogger();

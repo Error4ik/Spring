@@ -8,12 +8,15 @@ import org.example.company.domain.Salary;
 import org.example.company.services.EmployeeService;
 import org.example.company.services.PositionService;
 import org.example.company.services.SalaryService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+@Component
 public class UtilStorages {
 
     private static final Logger logger = LogManager.getLogger();
@@ -22,6 +25,7 @@ public class UtilStorages {
     private final PositionService positionService;
     private final SalaryService salaryService;
 
+    @Autowired
     public UtilStorages(EmployeeService employeeService, PositionService positionService, SalaryService salaryService) {
         this.employeeService = employeeService;
         this.positionService = positionService;

@@ -2,16 +2,17 @@ package org.example.company;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.example.company.config.SpringConfig;
 import org.example.company.domain.Employee;
 import org.example.company.domain.Position;
 import org.example.company.util.UtilStorages;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class Starter {
 
     private static final Logger logger = LogManager.getLogger();
     private final static String SEPARATOR = "--------------------";
-    private final static ClassPathXmlApplicationContext CONTEXT = new ClassPathXmlApplicationContext("spring-context.xml");
+    private final static AnnotationConfigApplicationContext CONTEXT = new AnnotationConfigApplicationContext(SpringConfig.class);
     private final static UtilStorages UTIL_STORAGES = CONTEXT.getBean(UtilStorages.class);
     private final static Company company = CONTEXT.getBean(Company.class);
     private final static int MONTHS_PER_YEAR = 12;

@@ -4,10 +4,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.example.company.domain.Position;
 import org.example.company.domain.Salary;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Component
 public class SalaryStorage {
 
     private static final Logger logger = LogManager.getLogger();

@@ -5,16 +5,20 @@ import org.apache.logging.log4j.Logger;
 import org.example.company.domain.Employee;
 import org.example.company.domain.Position;
 import org.example.company.domain.Salary;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import java.util.Set;
 
+@Component
 public class MyValidator {
 
     private static final Logger logger = LogManager.getLogger();
     private final Validator validator;
 
+    @Autowired
     public MyValidator(Validator validator) {
         this.validator = validator;
     }
