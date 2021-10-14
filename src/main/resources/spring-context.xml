@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <bean id="beanA" class="org.example.beans.simple_dependency_injection.BeanA">
+        <property name="name" value="${bean.a.name}"/>
+    </bean>
+
+    <bean id="beanB" class="org.example.beans.simple_dependency_injection.BeanB">
+        <constructor-arg ref="beanA"/>
+        <property name="name" value="${bean.b.name}"/>
+    </bean>
+
+    <bean id="beanC" class="org.example.beans.singleton_prototype.BeanC">
+        <property name="name" value="${bean.c.name}"/>
+        <lookup-method bean="beanD" name="createBeanD"/>
+    </bean>
+
+    <bean id="beanD" class="org.example.beans.singleton_prototype.BeanD" scope="prototype">
+        <property name="name" value="${bean.d.name}"/>
+    </bean>
+
+    <bean id="beanEReplacer" class="org.example.beans.replace_method.BeanMethodReplacer"/>
+
+    <bean id="beanE" class="org.example.beans.replace_method.BeanE">
+        <property name="name" value="${bean.e.name}"/>
+        <replaced-method name="printName" replacer="beanEReplacer"/>
+    </bean>
+
+    <bean id="beanF" class="org.example.beans.BeanF" init-method="init" destroy-method="destroy">
+        <property name="name" value="${bean.f.name}"/>
+    </bean>
+
+    <context:property-placeholder location="classpath:application.properties"/>
+</beans>
